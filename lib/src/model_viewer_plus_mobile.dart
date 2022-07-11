@@ -142,7 +142,7 @@ class ModelViewerState extends State<ModelViewer> {
           //print('>>>> ModelViewer began loading: <$url>'); // DEBUG
         },
         onPageFinished: (final String url) {
-          //print('>>>> ModelViewer finished loading: <$url>'); // DEBUG
+          print('>>>> ModelViewer finished loading: <$url>'); // DEBUG
         },
         onWebResourceError: (final WebResourceError error) {
           print(
