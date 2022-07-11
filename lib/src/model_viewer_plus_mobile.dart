@@ -52,9 +52,7 @@ class ModelViewerState extends State<ModelViewer> {
   Widget build(final BuildContext context) {
     if (_proxy == null) {
       return Center(
-        child: CircularProgressIndicator(
-          semanticsLabel: 'Loading Model Viewer...',
-        ),
+        child: CircularProgressIndicator(),
       );
     } else {
       return WebView(
