@@ -20,6 +20,13 @@ import 'html_builder.dart';
 
 import 'model_viewer_plus.dart';
 
+const String script = r'''
+const modelViewerTexture = document.querySelector("model-viewer");
+modelViewerTexture.addEventListener("progress", function(e) {
+   Progress.postMessage(e.detail.totalProgress);
+});
+''';
+
 class ModelViewerState extends State<ModelViewer> {
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
@@ -49,21 +56,25 @@ class ModelViewerState extends State<ModelViewer> {
     // TODO
   }
 
+  Widget _buildProgress() {
+    if (isFinish) {
+      return Container();
+    }
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
   @override
   Widget build(final BuildContext context) {
     if (_proxy == null) {
       return Center(
-        child: CircularProgressIndicator(),
-      );
+          // child: CircularProgressIndicator(),
+          );
     } else {
       return Stack(
         children: [
-          Visibility(
-            visible: !isFinish,
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
+          _buildProgress(),
           WebView(
             backgroundColor: Colors.transparent,
             initialUrl: null,
@@ -79,6 +90,9 @@ class ModelViewerState extends State<ModelViewer> {
               _controller.complete(webViewController);
               print('>>>> ModelViewer initializing... <$_proxyURL>'); // DEBUG
               await webViewController.loadUrl(_proxyURL);
+            },
+            javascriptChannels: <JavascriptChannel>{
+              _messageJavascriptChannel(context),
             },
             navigationDelegate: (final NavigationRequest navigation) async {
               print(
@@ -328,7 +342,8 @@ class ModelViewerState extends State<ModelViewer> {
       // Others
       innerModelViewerHtml: widget.innerModelViewerHtml,
       relatedCss: widget.relatedCss,
-      relatedJs: widget.relatedJs,
+      relatedJs:
+          widget.relatedJs == null ? script : "${widget.relatedJs}${script}",
       id: widget.id,
     );
   }
@@ -429,11 +444,22 @@ class ModelViewerState extends State<ModelViewer> {
             await response.close();
             break;
           }
-          setState(() {
-            isFinish = true;
-          });
       }
     });
+  }
+
+  JavascriptChannel _messageJavascriptChannel(BuildContext context) {
+    return JavascriptChannel(
+        name: 'Progress',
+        onMessageReceived: (JavascriptMessage message) {
+          var progress = double.parse(message.message);
+          if (progress > 0.98) {
+            setState(() {
+              isFinish = true;
+            });
+          }
+          // print('it is ${progress}');
+        });
   }
 
   Future<Uint8List> _readAsset(final String key) async {
