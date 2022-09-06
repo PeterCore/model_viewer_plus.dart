@@ -194,7 +194,7 @@
         <entry key="url_launcher">
           <value>
             <list>
-              <option value="$PROJECT_DIR$/../flutter/.pub-cache/hosted/pub.flutter-io.cn/url_launcher-6.1.4/lib" />
+              <option value="$PROJECT_DIR$/../flutter/.pub-cache/hosted/pub.flutter-io.cn/url_launcher-6.1.5/lib" />
             </list>
           </value>
         </entry>
@@ -308,7 +308,7 @@
       <root url="file://$PROJECT_DIR$/../flutter/.pub-cache/hosted/pub.flutter-io.cn/string_scanner-1.1.0/lib" />
       <root url="file://$PROJECT_DIR$/../flutter/.pub-cache/hosted/pub.flutter-io.cn/term_glyph-1.2.0/lib" />
       <root url="file://$PROJECT_DIR$/../flutter/.pub-cache/hosted/pub.flutter-io.cn/test_api-0.4.9/lib" />
-      <root url="file://$PROJECT_DIR$/../flutter/.pub-cache/hosted/pub.flutter-io.cn/url_launcher-6.1.4/lib" />
+      <root url="file://$PROJECT_DIR$/../flutter/.pub-cache/hosted/pub.flutter-io.cn/url_launcher-6.1.5/lib" />
       <root url="file://$PROJECT_DIR$/../flutter/.pub-cache/hosted/pub.flutter-io.cn/url_launcher_android-6.0.17/lib" />
       <root url="file://$PROJECT_DIR$/../flutter/.pub-cache/hosted/pub.flutter-io.cn/url_launcher_ios-6.0.17/lib" />
       <root url="file://$PROJECT_DIR$/../flutter/.pub-cache/hosted/pub.flutter-io.cn/url_launcher_linux-3.0.1/lib" />

@@ -38,6 +38,9 @@ class ModelViewerState extends State<ModelViewer> {
   @override
   void initState() {
     super.initState();
+    if (Platform.isAndroid) {
+      WebView.platform = SurfaceAndroidWebView();
+    }
     _initProxy();
   }
 
@@ -94,9 +97,9 @@ class ModelViewerState extends State<ModelViewer> {
           print('>>>> ModelViewer wants to load: <${navigation.url}>'); // DEBUG
           if (!Platform.isAndroid) {
             if (Platform.isIOS && navigation.url == widget.iosSrc) {
-              await launch(
-                navigation.url,
-                forceSafariVC: true,
+              await launchUrl(
+                Uri.parse(navigation.url),
+                mode: LaunchMode.inAppWebView,
               );
               return NavigationDecision.prevent;
             }
